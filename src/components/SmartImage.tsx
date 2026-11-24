@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type SmartImageProps = {
   src: string;
@@ -9,9 +9,19 @@ type SmartImageProps = {
   fetchPriority?: 'high' | 'low' | 'auto';
 };
 
+// A generic architectural fallback is used only when the requested image fails.
+const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1516594762805-9a87a90b9ca6?auto=format&fit=crop&w=1200&q=80';
+
 export function SmartImage({ src, alt, className = '', imgClassName = '', loading = 'lazy', fetchPriority }: SmartImageProps) {
   const [loaded, setLoaded] = useState(false);
+  const [currentSrc, setCurrentSrc] = useState(src);
   const [errored, setErrored] = useState(false);
+
+  useEffect(() => {
+    setCurrentSrc(src);
+    setLoaded(false);
+    setErrored(false);
+  }, [src]);
 
   return (
     <div className={`relative overflow-hidden bg-gradient-to-br from-sage via-ink to-obsidian ${className}`}>
@@ -20,19 +30,21 @@ export function SmartImage({ src, alt, className = '', imgClassName = '', loadin
       )}
       {errored ? (
         <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-sage via-ink to-obsidian">
-          <div className="text-center">
-            <div className="mx-auto mb-3 h-16 w-16 border border-champagne/30" />
-            <span className="text-[0.6rem] uppercase tracking-ultra-wide text-champagne/60">Reno Decks</span>
-          </div>
+          <span className="text-[0.6rem] uppercase tracking-ultra-wide text-champagne/60">Reno Decks</span>
         </div>
       ) : (
         <img
-          src={src}
+          src={currentSrc}
           alt={alt}
           loading={loading}
           fetchPriority={fetchPriority}
           onLoad={() => setLoaded(true)}
-          onError={() => setErrored(true)}
+          onError={() => {
+            if (currentSrc !== FALLBACK_IMAGE) {
+              setLoaded(false);
+              setCurrentSrc(FALLBACK_IMAGE);
+            } else setErrored(true);
+          }}
           className={`h-full w-full object-cover transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'} ${imgClassName}`}
         />
       )}

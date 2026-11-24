@@ -41,19 +41,19 @@ export const products: Product[] = [
 ]
 
 export const categories = [
-  { name: "Timber decking", slug: "decking", image: "/images/catalogue/historic-decking.svg" },
-  { name: "Decking slats", slug: "slats", image: "/images/catalogue/historic-slats.svg" },
-  { name: "Timber boards", slug: "boards", image: "/images/catalogue/historic-boards.svg" },
-  { name: "Deck treatments", slug: "oils", image: "/images/catalogue/historic-oils.svg" },
-  { name: "Structural timber", slug: "substructure", image: "/images/catalogue/historic-substructure.svg" },
-  { name: "Laminated beams", slug: "laminated-beams", image: "/images/catalogue/historic-laminated-beams.svg" },
+  { name: "Timber decking", slug: "decking", image: "https://images.unsplash.com/photo-1516594762805-9a87a90b9ca6?auto=format&fit=crop&w=1200&q=80" },
+  { name: "Decking slats", slug: "slats", image: "https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=1200&q=80" },
+  { name: "Timber boards", slug: "boards", image: "https://images.unsplash.com/photo-1545324418-cc1a3a10f4f8?auto=format&fit=crop&w=1200&q=80" },
+  { name: "Deck treatments", slug: "oils", image: "https://images.unsplash.com/photo-1503394324252-6b2e60a47d21?auto=format&fit=crop&w=1200&q=80" },
+  { name: "Structural timber", slug: "substructure", image: "https://images.unsplash.com/photo-1565178899192-71e7b3e6c8e6?auto=format&fit=crop&w=1200&q=80" },
+  { name: "Laminated beams", slug: "laminated-beams", image: "https://images.unsplash.com/photo-1493946740644-2d83a1dcb18e?auto=format&fit=crop&w=1200&q=80" },
 
-  { name: "Premium Decking", slug: 'premium-decking', image: '/images/catalogue/timmdek-rockies-decking-aspen.svg' },
-  { name: "Composite Decking", slug: 'composite-decking', image: '/images/catalogue/timmdek-alps-decking-range.svg' },
-  { name: "Cladding", slug: 'cladding', image: '/images/catalogue/timmdek-rockies-2d-cladding.svg' },
-  { name: "Fascia Boards", slug: 'fascia-boards', image: '/images/catalogue/timmdek-rockies-trim-board.svg' },
-  { name: "Balustrades", slug: 'balustrades', image: '/images/catalogue/timmdek-elitebeam.svg' },
-  { name: "Accessories", slug: 'accessories', image: '/images/catalogue/decking-starter-clips.svg' },
+  { name: "Premium Decking", slug: 'premium-decking', image: products.find(p => p.slug === 'timmdek-rockies-decking-aspen')!.image },
+  { name: "Composite Decking", slug: 'composite-decking', image: products.find(p => p.slug === 'timmdek-alps-decking-range')!.image },
+  { name: "Cladding", slug: 'cladding', image: products.find(p => p.slug === 'timmdek-rockies-2d-cladding')!.image },
+  { name: "Fascia Boards", slug: 'fascia-boards', image: products.find(p => p.slug === 'timmdek-rockies-trim-board')!.image },
+  { name: "Balustrades", slug: 'balustrades', image: products.find(p => p.slug === 'timmdek-composite-baluster')!.image },
+  { name: "Accessories", slug: 'accessories', image: products.find(p => p.slug === 'decking-starter-clips')!.image },
 ];
 export const allFinishes: string[] = Array.from(new Set(products.flatMap(p => p.finishes.map(f => f.name)))).sort();
 export function getProduct(slug: string): Product | undefined { return products.find(p => p.slug === slug); }
